@@ -29,24 +29,37 @@ steps:
       sonar.cs.vstest.reportsPaths=**\TestResults\*.trx
 
 - task: DotNetCoreCLI@2
+  displayName: .Net Restore
   inputs:
     command: 'restore'
     projects: '**/*.sln'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
+  displayName: .Net Build
   inputs:
     command: 'build'
     projects: '**\*.sln'
     arguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactstagingdirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+  enabled: false
+
+- task: VSBuild@1
+  displayName: VS Build
+  inputs:
+    solution: '**\*.sln'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactstagingdirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: .Net Test
   inputs:
     command: 'test'
     projects: '**\*.sln'
     arguments: '--collect:"Code Coverage"'
 
 - task: VSTest@2
+  displayName: VS Test
   inputs:
     testSelector: 'testAssemblies'
     codeCoverageEnabled: true
