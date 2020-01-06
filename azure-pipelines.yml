@@ -29,10 +29,9 @@ steps:
       sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
       sonar.cs.vstest.reportsPaths=**\TestResults\*.trx
 
-- task: PowerShell@2
-  displayName: .Net Restore
+- task: InlinePowershell@1
   inputs:
-    script: 'dotnet restore'
+    Script: 'dotnet restore'
 
 - task: DotNetCoreCLI@2
   displayName: .Net Build
