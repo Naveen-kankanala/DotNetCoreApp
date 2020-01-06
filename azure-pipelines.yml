@@ -55,7 +55,7 @@ steps:
   displayName: .Net Test
   inputs:
     command: 'test'
-    projects: '**/*Project/*.csproj'
+    projects: '**/*.csproj'
     arguments: '--collect:"Code Coverage"'
 
 - task: VSTest@2
