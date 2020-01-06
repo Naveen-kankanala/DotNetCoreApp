@@ -46,7 +46,7 @@ steps:
 - task: VSBuild@1
   displayName: VS Build
   inputs:
-    solution: '**\*.sln'
+    solution: '**\*.csproj'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactstagingdirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
@@ -55,7 +55,7 @@ steps:
   displayName: .Net Test
   inputs:
     command: 'test'
-    projects: '**\*.sln'
+    projects: '**/*Project/*.csproj'
     arguments: '--collect:"Code Coverage"'
 
 - task: VSTest@2
@@ -71,6 +71,7 @@ steps:
     resultsFolder: '$(Common.TestResultsDirectory)'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
+    publishRunAttachments: true
 
 - task: SonarQubeAnalyze@4
 
