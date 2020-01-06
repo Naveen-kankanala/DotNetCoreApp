@@ -28,11 +28,8 @@ steps:
     extraProperties: |
       sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
       sonar.cs.vstest.reportsPaths=**\TestResults\*.trx
-      
-- task: PythonScript@0
-  inputs:
-    scriptSource: 'inline'
-    script: 'dotnet restore'
+
+-    script: 'dotnet restore'
 
 - task: DotNetCoreCLI@2
   displayName: .Net Build
