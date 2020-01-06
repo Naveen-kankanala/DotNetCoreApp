@@ -46,7 +46,7 @@ steps:
 - task: VSBuild@1
   displayName: VS Build
   inputs:
-    solution: '**\*.csproj'
+    solution: '**\*.sln'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactstagingdirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
